@@ -35,12 +35,22 @@
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       @foreach ($products as $product)
         <div
-          class="hover:-trangray-y-1 group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-green-500/10">
+          class="group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-green-500/10">
           <!-- Product Image -->
           <a href="{{ route('product.detail', $product->slug) }}">
             <div class="h-56 overflow-hidden">
-              <img src="{{ $product->image }}" alt="{{ $product->name }}"
-                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+              @if ($product->image && file_exists(public_path("storage/img/product/$product->image")))
+                <img src="{{ asset("storage/img/product/$product->image") }}" alt="{{ $product->name }}"
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+              @else
+                <div class="flex size-full items-center justify-center rounded-md bg-gray-100 dark:bg-gray-700">
+                  <svg class="size-28 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                  </svg>
+                </div>
+              @endif
             </div>
           </a>
 

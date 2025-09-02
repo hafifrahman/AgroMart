@@ -28,9 +28,9 @@
             <td class="whitespace-nowrap px-6 py-4">
               <div class="flex items-center">
                 <div class="h-10 w-10 flex-shrink-0">
-                  @if (Storage::exists("public/img/product/$product->image"))
-                    <img class="h-10 w-10 rounded-md object-cover" src="{{ $product->image }}"
-                      alt="{{ $product->name }}">
+                  @if ($product->image && file_exists(public_path("storage/img/product/$product->image")))
+                    <img class="h-10 w-10 rounded-md object-cover"
+                      src='{{ asset("storage/img/product/$product->image") }}' alt="{{ $product->name }}">
                   @else
                     <div class="flex h-10 w-10 items-center justify-center rounded-md bg-gray-100 dark:bg-gray-700">
                       <svg class="h-7 w-7 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@
               Rp {{ number_format($product->price, 0, ',', '.') }}</td>
             <td class="whitespace-nowrap px-6 py-4 text-gray-500 dark:text-gray-400">150</td>
             <td class="flex whitespace-nowrap px-6 py-4 text-sm font-medium">
-              <livewire:admin.product.edit :product="$product" />
+              {{-- <livewire:admin.product.edit :product="$product" /> --}}
 
               <button type="button" wire:click="deleteProduct({{ $product->id }})"
                 class="ml-4 cursor-pointer text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
@@ -105,6 +105,7 @@
             <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kategori</label>
             <select id="category_id" wire:model="category_id"
               class="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+              <option value="">Pilih Kategori</option>
               @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
               @endforeach

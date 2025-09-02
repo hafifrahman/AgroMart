@@ -8,9 +8,13 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Index extends Component
 {
+    use WithFileUploads;
+
     #[Layout('components.layouts.admin.app')]
     #[Title('Produk')]
 
@@ -18,7 +22,7 @@ class Index extends Component
     public string $name = '';
 
     #[Validate('nullable|image|max:1024')]
-    public string $image = '';
+    public $image;
 
     #[Validate('required|exists:categories,id')]
     public int $category_id = 0;
@@ -33,8 +37,21 @@ class Index extends Component
     {
         $validatedData = $this->validate();
 
+        // PERBAIKAN 2: Tambahkan logika untuk menyimpan file.
+        if ($this->image) {
+            // Simpan file ke storage/app/public/img/product
+            // dan dapatkan nama filenya.
+            $imageName = $this->image->store('img/product', 'public');
+
+            // Hapus 'img/product/' dari nama file agar sesuai dengan struktur URL Anda.
+            $validatedData['image'] = basename($imageName);
+        }
+
+        $validatedData['slug'] = Str::slug($this->name);
+
         ModelsProduct::create($validatedData);
 
+        $this->reset();
         $this->dispatch('productCreated');
     }
 

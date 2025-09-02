@@ -15,7 +15,7 @@ class Edit extends Component
     public string $name = '';
 
     #[Validate('nullable|image|max:1024')]
-    public string $image = '';
+    public $image = '';
 
     #[Validate('required|exists:categories,id')]
     public int $category_id = 0;
