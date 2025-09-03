@@ -6,7 +6,7 @@
       <!-- Daftar Item Keranjang -->
       <div
         class="w-full rounded-xl border border-gray-200 bg-white shadow-sm lg:w-2/3 dark:border-gray-700 dark:bg-gray-800">
-        <div class="flex items-center justify-between border-b border-b-gray-700 p-4 dark:border-b-gray-600">
+        <div class="flex items-center justify-between border-b border-b-gray-200 p-4 dark:border-b-gray-700">
           <div class="flex items-center">
             <input type="checkbox" @if ($selectAll) checked @endif wire:click="toggleSelectAll"
               class="h-5 w-5 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:ring-offset-gray-800 dark:focus:ring-green-600">
@@ -17,11 +17,11 @@
 
         @foreach ($cartItems as $item)
           <div
-            class="flex items-center justify-between border-b border-b-gray-700 p-4 last:border-b-0 dark:border-b-gray-600">
+            class="flex items-center justify-between border-b border-b-gray-200 p-4 last:border-b-0 dark:border-b-gray-700">
             <div class="flex items-center">
               <input type="checkbox" @if (in_array($item->id, $selectedItems)) checked @endif
                 wire:click="toggleItem({{ $item->id }})"
-                class="mr-3 h-5 w-5 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:ring-offset-gray-800 dark:focus:ring-green-600">
+                class="mr-3 h-5 w-5 rounded border border-gray-300 text-green-600 focus:ring-green-500 dark:bg-gray-800 dark:ring-offset-gray-800 dark:focus:ring-green-600">
 
               @if ($item->product->image && file_exists(public_path('storage/img/product/' . $item->product->image)))
                 <img src="{{ asset('storage/img/product/' . $item->product->image) }}" alt="{{ $item->product->name }}"
@@ -36,7 +36,7 @@
                 </div>
               @endif
               <div>
-                <h3 class="font-semibold text-gray-800 dark:text-slate-100">{{ $item->product->name }}</h3>
+                <h3 class="font-semibold text-gray-800 dark:text-gray-100">{{ $item->product->name }}</h3>
                 <p class="text-gray-600 dark:text-gray-400">Rp {{ number_format($item->product->price, 0, ',', '.') }}
                 </p>
               </div>
@@ -45,7 +45,7 @@
             <div class="flex items-center gap-4">
               <input type="number" wire:model="quantities.{{ $item->id }}"
                 wire:change="updateQuantity({{ $item->id }})" min="1"
-                class="w-16 rounded border p-1.5 text-center text-gray-800 focus:border-green-500 focus:ring-green-500 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-green-600 dark:focus:ring-green-600">
+                class="w-16 rounded border border-gray-300 p-1.5 text-center text-gray-800 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-green-600 dark:focus:ring-green-600">
 
               <button wire:click="removeItem({{ $item->id }})"
                 class="cursor-pointer text-red-500 hover:text-red-700 dark:text-red-600 dark:hover:text-red-400">
@@ -65,7 +65,7 @@
       <!-- Ringkasan Belanja -->
       <div class="w-full lg:w-1/3">
         <div class="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800">
-          <h2 class="mb-4 text-xl font-bold text-gray-800 dark:text-slate-100">Ringkasan Belanja</h2>
+          <h2 class="mb-4 text-xl font-bold text-gray-800 dark:text-gray-100">Ringkasan Belanja</h2>
           <div class="mb-2 flex justify-between">
             <span class="text-gray-600 dark:text-gray-400">Item Dipilih</span>
             <span class="text-gray-600 dark:text-gray-400">{{ $selectedCount }} produk</span>

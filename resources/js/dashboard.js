@@ -1,3 +1,5 @@
+import Chart from 'chart.js/auto';
+
 document.addEventListener('livewire:navigated', () => {
     // Chart.js Sales Chart
     const ctx = document.getElementById('salesChart')?.getContext('2d');

@@ -8,7 +8,6 @@
     <title>{{ $title . ' - ' . config('app.name') }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
       body {
