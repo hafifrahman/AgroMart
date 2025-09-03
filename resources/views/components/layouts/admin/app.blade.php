@@ -14,32 +14,6 @@
         font-family: 'Inter', sans-serif;
       }
 
-      /* Custom scrollbar for webkit browsers */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #4a5568;
-        border-radius: 4px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: #2d3748;
-      }
-
-      .dark ::-webkit-scrollbar-thumb {
-        background: #718096;
-      }
-
-      .dark ::-webkit-scrollbar-thumb:hover {
-        background: #a0aec0;
-      }
-
       /* Sidebar transition */
       #sidebar {
         transition: transform 0.3s ease-in-out;

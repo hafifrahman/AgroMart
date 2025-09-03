@@ -9,26 +9,18 @@
 
   <form wire:submit.prevent="store">
     <div class="mb-4">
-      <label
-        class="{{ $errors->has('email') ? 'text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300' }} mb-2 block"
-        for="email">Email</label>
-      <input
-        class="{{ $errors->has('email') ? 'border-red-400 dark:border-red-500' : 'focus:ring-green-500 focus:ring-2 dark:ring-green-400 dark:border dark:border-gray-400' }} w-full rounded-lg border px-3 py-2 focus:outline-none dark:text-gray-50"
-        type="email" id="email" wire:model.blur="email" autofocus required />
+      <label class="mb-2 block text-gray-700 dark:text-gray-300" for="email">Email</label>
+      <x-input type="email" id="email" wire:model.blur="email" required autofocus />
       @error('email')
         <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span>
       @enderror
     </div>
 
     <div class="mb-6">
-      <label
-        class="{{ $errors->has('password') ? 'text-red-600 dark:text-red-400' : 'text-gray-700 dark:text-gray-300' }} mb-2 block"
-        for="password">
+      <label class="mb-2 block text-gray-700 dark:text-gray-300" for="password">
         Kata Sandi
       </label>
-      <input
-        class="{{ $errors->has('password') ? 'border-red-400 dark:border-red-500' : 'focus:ring-green-500 focus:ring-2 dark:ring-green-400 dark:border dark:border-gray-400' }} w-full rounded-lg border px-3 py-2 focus:outline-none dark:text-gray-50"
-        type="password" id="password" wire:model.blur="password" required />
+      <x-input type="password" id="password" wire:model.blur="password" required />
       @error('password')
         <span class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</span>
       @enderror

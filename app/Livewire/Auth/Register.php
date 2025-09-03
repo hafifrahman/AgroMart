@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Register extends Component
 {
-    #[Layout('components.layouts.auth')]
+    #[Layout('components.layouts.guest')]
     #[Title('Register')]
 
     #[Validate('required|string|max:50|min:3|unique:users,name')]
