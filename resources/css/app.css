@@ -12,28 +12,31 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Custom scrollbar for webkit browsers */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
     background: transparent;
+    margin: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #4a5568;
-    border-radius: 4px;
+    background: linear-gradient(135deg, #4a5568, #2d3748);
+    border-radius: 10px;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #2d3748;
+    background: linear-gradient(135deg, #2d3748, #1a202c);
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #718096;
+    background: linear-gradient(135deg, #718096, #4a5568);
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-    background: #a0aec0;
+    background: linear-gradient(135deg, #a0aec0, #718096);
 }

@@ -1,4 +1,5 @@
 import './bootstrap';
+import './sidebar';
 import './dashboard';
 import './product';
 import './theme-toggle';

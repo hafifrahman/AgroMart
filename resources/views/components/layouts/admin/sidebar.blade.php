@@ -1,5 +1,5 @@
 <aside id="sidebar"
-  class="-trangray-x-full md:trangray-x-0 fixed inset-y-0 left-0 z-30 w-64 transform flex-col overflow-y-auto bg-white p-4 shadow-lg transition-transform duration-300 ease-in-out md:relative dark:bg-gray-800">
+  class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full transform overflow-y-auto bg-white p-4 shadow-lg transition-transform duration-300 ease-in-out md:relative md:block md:translate-x-0 dark:bg-gray-800">
   <div class="mb-10 flex items-center space-x-2">
     <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w.w3.org/2000/svg">
       <path fill="#22C55E"
@@ -66,14 +66,4 @@
   </nav>
 </aside>
 
-<script>
-  document.addEventListener('livewire:updated', function() {
-    // Mobile Sidebar Toggle
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('sidebar');
-
-    sidebarToggle.addEventListener('click', function() {
-      sidebar.classList.toggle('-trangray-x-full');
-    });
-  });
-</script>
+<div id="sidebar-overlay" class="fixed inset-0 z-30 hidden bg-black/60 transition-opacity duration-300 md:hidden"></div>

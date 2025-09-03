@@ -1,4 +1,5 @@
-<nav class="sticky top-0 z-50 bg-white shadow-md dark:bg-gray-800 dark:shadow-lg dark:shadow-gray-900/20">
+<nav
+  class="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 dark:shadow-lg dark:shadow-gray-900/20">
   <div class="container mx-auto flex items-center justify-between px-6 py-3">
     <a href="{{ route('home') }}" wire:navigate class="flex items-center space-x-2">
       <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">

@@ -1,20 +1,25 @@
 <div>
-  <header class="bg-green-100 dark:bg-gray-900">
-    <div class="container mx-auto px-6 py-16 text-center">
-      <h1 class="text-4xl font-bold text-green-800 md:text-5xl">Solusi Pertanian Modern Anda</h1>
+  <header
+    class="bg-gradient-to-r from-green-100 via-green-200 to-green-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div class="container mx-auto px-6 py-20 text-center">
+      <h1 class="text-5xl font-extrabold leading-tight text-green-900 md:text-6xl dark:text-white">
+        Panen Lebih Banyak, Lebih Mudah 🌾
+      </h1>
 
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-green-700">
-        Temukan alat, bibit, dan pupuk kualitas terbaik untuk hasil panen melimpah.
+      <p class="mx-auto mt-6 max-w-2xl text-xl text-green-800 dark:text-green-300">
+        Solusi pertanian modern untuk petani cerdas: alat inovatif, bibit unggul, dan pupuk terbaik.
       </p>
 
-      <a href="{{ route('product') }}" wire:navigate
-        class="mt-8 inline-block transform rounded-full bg-green-600 px-8 py-3 font-bold text-white transition hover:scale-105 hover:bg-green-700 dark:hover:bg-green-500">
-        Belanja Sekarang
-      </a>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="{{ route('product') }}" wire:navigate
+          class="inline-block rounded-full bg-green-600 px-8 py-3 text-lg font-semibold text-white transition hover:scale-105 hover:bg-green-700 dark:hover:bg-green-500">
+          Belanja Sekarang
+        </a>
+      </div>
     </div>
   </header>
 
-  <section class="bg-white py-12 dark:bg-gray-800">
+  <section class="border-t border-gray-200 py-12 dark:border-gray-700">
     <div class="container mx-auto px-6">
       <h2 class="mb-8 text-center text-3xl font-bold text-gray-800 dark:text-white">Produk Unggulan</h2>
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

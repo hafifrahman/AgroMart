@@ -76,8 +76,7 @@
     aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="w-full max-w-3xl transform rounded-xl bg-white p-6 shadow-xl transition-all dark:bg-gray-800">
       <div class="flex items-start justify-between">
-        <h3 id="product-modal-title" class="text-xl font-semibold text-gray-900 dark:text-white">Tambah Produk Baru
-        </h3>
+        <h3 id="product-modal-title" class="text-xl font-semibold text-gray-900 dark:text-white">Tambah Produk Baru</h3>
         <button type="button"
           class="close-modal-btn rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-300">
           <span class="sr-only">Close</span>
@@ -90,21 +89,20 @@
       <div class="mt-4">
         <form wire:submit.prevent="store" class="space-y-4">
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+            <label for="name" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
               Nama Produk
             </label>
-            <input type="text" wire:model="name" id="name"
-              class="mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+            <x-input type="text" wire:model="name" id="name" />
           </div>
           <div>
-            <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Gambar</label>
-            <input type="file" wire:model="image" id="image"
-              class="mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+            <label for="image" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Gambar</label>
+            <x-input type="file" wire:model="image" id="image" />
           </div>
           <div>
-            <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Kategori</label>
+            <label for="category_id"
+              class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Kategori</label>
             <select id="category_id" wire:model="category_id"
-              class="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+              class="block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
               <option value="">Pilih Kategori</option>
               @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -113,14 +111,14 @@
           </div>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Harga</label>
-              <input type="number" wire:model="price" id="price"
-                class="mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+              <label for="price"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Harga</label>
+              <x-input type="number" wire:model="price" id="price" required />
             </div>
             <div>
-              <label for="stock" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Stok</label>
-              <input type="number" wire:model="stock" id="stock" value="1"
-                class="mt-1 block w-full rounded-md border-gray-300 p-2 shadow-sm focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+              <label for="stock"
+                class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Stok</label>
+              <x-input type="number" wire:model="stock" id="stock" value="1" required />
             </div>
           </div>
           <div class="mt-4 flex justify-end space-x-3">
