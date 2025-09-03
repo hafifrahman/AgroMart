@@ -8,10 +8,11 @@
         class="w-full rounded-xl border border-gray-200 bg-white shadow-sm lg:w-2/3 dark:border-gray-700 dark:bg-gray-800">
         <div class="flex items-center justify-between border-b border-b-gray-200 p-4 dark:border-b-gray-700">
           <div class="flex items-center">
-            <input type="checkbox" @if ($selectAll) checked @endif wire:click="toggleSelectAll"
+            <input type="checkbox" wire:model.live="selectAll"
               class="h-5 w-5 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:ring-offset-gray-800 dark:focus:ring-green-600">
-            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Pilih Semua
-              ({{ $selectedCount }}/{{ $cartItems->count() }})</span>
+            <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">
+              Pilih Semua ({{ $selectedCount }}/{{ $cartItems->count() }})
+            </span>
           </div>
         </div>
 
@@ -19,8 +20,7 @@
           <div
             class="flex items-center justify-between border-b border-b-gray-200 p-4 last:border-b-0 dark:border-b-gray-700">
             <div class="flex items-center">
-              <input type="checkbox" @if (in_array($item->id, $selectedItems)) checked @endif
-                wire:click="toggleItem({{ $item->id }})"
+              <input type="checkbox" wire:model.live="selectedItems" value="{{ $item->id }}"
                 class="mr-3 h-5 w-5 rounded border border-gray-300 text-green-600 focus:ring-green-500 dark:bg-gray-800 dark:ring-offset-gray-800 dark:focus:ring-green-600">
 
               @if ($item->product->image && file_exists(public_path('storage/img/product/' . $item->product->image)))
@@ -48,7 +48,7 @@
                 class="w-16 rounded border border-gray-300 p-1.5 text-center text-gray-800 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-green-600 dark:focus:ring-green-600">
 
               <button wire:click="removeItem({{ $item->id }})"
-                class="cursor-pointer text-red-500 hover:text-red-700 dark:text-red-600 dark:hover:text-red-400">
+                class="cursor-pointer text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600">
                 Hapus
               </button>
             </div>
@@ -74,8 +74,8 @@
             <span class="text-gray-600 dark:text-gray-400">Total</span>
             <span class="text-gray-600 dark:text-gray-400">Rp {{ number_format($totalPrice, 0, ',', '.') }}</span>
           </div>
-          <button wire:click="$dispatch('openModal', 'checkout')" @if ($selectedCount === 0) disabled @endif
-            class="mt-6 block w-full rounded-lg bg-green-600 py-3 text-center font-bold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-400 dark:bg-green-600 dark:hover:bg-green-500">
+          <button wire:click="checkout" @if ($selectedCount === 0) disabled @endif
+            class="mt-6 block w-full cursor-pointer rounded-lg bg-green-600 py-3 text-center font-bold text-white transition hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:hover:bg-gray-400 dark:bg-green-600 dark:hover:bg-green-500">
             Lanjut ke Checkout ({{ $selectedCount }})
           </button>
         </div>

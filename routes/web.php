@@ -23,6 +23,11 @@ Route::get('about', App\Livewire\About::class)
 Route::get('contact', App\Livewire\Contact::class)
     ->name('contact');
 
+Route::middleware('auth')->group(function () {
+    Route::get('my-orders', App\Livewire\MyOrders::class)
+        ->name('my.orders');
+});
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', App\Livewire\Admin\Dashboard::class)
         ->name('dashboard');

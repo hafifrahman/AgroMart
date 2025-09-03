@@ -37,6 +37,19 @@ class Cart extends Component
         $this->selectAll = false;
     }
 
+    public function checkout()
+    {
+        if (count($this->selectedItems) === 0) {
+            return; // Tidak ada item yang dipilih, tidak perlu melanjutkan
+        }
+
+        // Simpan selectedItems di session untuk digunakan di halaman checkout
+        session(['selected_cart_items' => $this->selectedItems]);
+
+        // Redirect ke halaman checkout
+        return $this->redirectRoute('checkout', navigate: true);
+    }
+
     public function updatedSelectedItems()
     {
         // Update status selectAll ketika selectedItems berubah
@@ -53,9 +66,6 @@ class Cart extends Component
         $quantity = max(1, $quantity);
 
         $cartItem->update(['quantity' => $quantity]);
-
-        // Reload data
-        $this->loadCartItems();
 
         // Emit event untuk update total harga
         $this->dispatch('cartUpdated');
@@ -92,12 +102,15 @@ class Cart extends Component
         $this->selectAll = count($this->selectedItems) === count($this->cartItems);
     }
 
-    // Toggle pilih semua item
-    public function toggleSelectAll()
+    public function updatedSelectAll($value)
     {
-        if ($this->selectAll) {
+        if ($value) {
+            // Jika checkbox "Pilih Semua" dicentang ($value = true)
+            // maka isi $selectedItems dengan semua id dari cartItems.
             $this->selectedItems = $this->cartItems->pluck('id')->toArray();
         } else {
+            // Jika centang dihilangkan ($value = false)
+            // maka kosongkan array $selectedItems.
             $this->selectedItems = [];
         }
     }

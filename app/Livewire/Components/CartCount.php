@@ -16,6 +16,10 @@ class CartCount extends Component
         if (Auth::check()) {
             $this->cartCount = Auth::user()->shoppingCarts->count();
         }
+
+        if ($this->cartCount > 99) {
+            $this->cartCount = '99+';
+        }
     }
 
     public function render()

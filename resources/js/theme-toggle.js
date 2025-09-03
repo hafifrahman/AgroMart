@@ -1,40 +1,55 @@
 document.addEventListener('livewire:navigated', function () {
-    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    // Fungsi untuk menyinkronkan semua ikon berdasarkan tema saat ini
+    const syncIcons = (theme) => {
+        const allDarkIcons = document.querySelectorAll('.theme-toggle-dark-icon');
+        const allLightIcons = document.querySelectorAll('.theme-toggle-light-icon');
+        const themeTooltip = document.getElementById('theme-tooltip');
 
-    if (
-        localStorage.getItem('color-theme') === 'dark' ||
-        (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-        themeToggleLightIcon?.classList.remove('hidden');
-        document.documentElement.classList.add('dark');
-    } else {
-        themeToggleDarkIcon?.classList.remove('hidden');
-        document.documentElement.classList.remove('dark');
-    }
-
-    const themeToggleBtn = document.getElementById('theme-toggle');
-
-    themeToggleBtn?.addEventListener('click', function () {
-        themeToggleDarkIcon.classList.toggle('hidden');
-        themeToggleLightIcon.classList.toggle('hidden');
-
-        if (localStorage.getItem('color-theme')) {
-            if (localStorage.getItem('color-theme') === 'light') {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            }
+        if (theme === 'dark') {
+            allLightIcons.forEach((icon) => icon.classList.remove('hidden'));
+            allDarkIcons.forEach((icon) => icon.classList.add('hidden'));
+            themeTooltip.innerText = 'Light Mode';
         } else {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('color-theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('color-theme', 'dark');
-            }
+            allDarkIcons.forEach((icon) => icon.classList.remove('hidden'));
+            allLightIcons.forEach((icon) => icon.classList.add('hidden'));
+            themeTooltip.innerText = 'Dark Mode';
         }
+    };
+
+    // Fungsi untuk mengatur tema awal saat halaman dimuat
+    const setInitialTheme = () => {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('color-theme');
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.classList.add('dark');
+            syncIcons('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            syncIcons('light');
+        }
+    };
+
+    // Panggil fungsi untuk mengatur tema awal
+    setInitialTheme();
+
+    // Dapatkan SEMUA tombol dengan class .theme-toggle
+    const themeToggleBtns = document.querySelectorAll('.theme-toggle');
+
+    // Tambahkan event listener ke SETIAP tombol
+    themeToggleBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            // Cek apakah mode gelap sedang aktif
+            const isDark = document.documentElement.classList.toggle('dark');
+
+            // Simpan preferensi tema ke localStorage
+            if (isDark) {
+                localStorage.setItem('color-theme', 'dark');
+                syncIcons('dark');
+            } else {
+                localStorage.setItem('color-theme', 'light');
+                syncIcons('light');
+            }
+        });
     });
 });
