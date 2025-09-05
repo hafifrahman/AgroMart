@@ -44,7 +44,7 @@
                 </span>
               </td>
               <td class="whitespace-nowrap px-6 py-4 text-sm font-medium">
-                <a href="{{ route('admin.order.show', $order) }}"
+                <a href="{{ route('admin.order.show', $order) }}" wire:navigate
                   class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Lihat</a>
               </td>
             </tr>
