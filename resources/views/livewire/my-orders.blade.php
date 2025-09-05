@@ -61,7 +61,7 @@
       <h3 class="mt-2 text-xl font-medium text-gray-900 dark:text-gray-100">Tidak ada pesanan</h3>
       <p class="mt-1 text-gray-500 dark:text-gray-400">Anda belum pernah melakukan pemesanan.</p>
       <div class="mt-6">
-        <a href="{{ route('product') }}" wire:navigate
+        <a href="{{ Auth::user()->shoppingCarts()->exists() ? route('cart') : route('product') }}" wire:navigate
           class="inline-block rounded-lg bg-green-600 px-6 py-2 font-bold text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-500">
           Mulai Belanja
         </a>

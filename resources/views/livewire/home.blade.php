@@ -1,6 +1,6 @@
 <div>
   <header
-    class="bg-gradient-to-r from-green-100 via-green-200 to-green-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    class="bg-gradient-to-r from-green-100 via-green-200 to-green-100 py-44 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
     <div class="container mx-auto px-6 py-20 text-center">
       <h1 class="text-5xl font-extrabold leading-tight text-green-900 md:text-6xl dark:text-white">
         Panen Lebih Banyak, Lebih Mudah 🌾
@@ -19,12 +19,12 @@
     </div>
   </header>
 
-  <section class="border-t border-gray-200 py-12 dark:border-gray-700">
-    <div class="container mx-auto px-6">
-      <h2 class="mb-8 text-center text-3xl font-bold text-gray-800 dark:text-white">Produk Unggulan</h2>
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        @foreach ($products as $product)
-          @if ($product->featured)
+  @if ($products->isNotEmpty())
+    <section class="border-t border-gray-200 py-12 dark:border-gray-700">
+      <div class="container mx-auto px-6">
+        <h2 class="mb-8 text-center text-3xl font-bold text-gray-800 dark:text-white">Produk Unggulan</h2>
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          @foreach ($products as $product)
             <div
               class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 dark:border-gray-700 dark:bg-gray-800 dark:hover:shadow-green-500/10">
               <a href="{{ route('product.detail', $product->slug) }}">
@@ -78,9 +78,9 @@
                 @endif
               </div>
             </div>
-          @endif
-        @endforeach
+          @endforeach
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  @endif
 </div>

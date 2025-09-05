@@ -7,6 +7,8 @@
 
     <title>{{ $title . ' - ' . config('app.name') }}</title>
 
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
+
     <script>
       if (
         localStorage.getItem("color-theme") === "dark" ||

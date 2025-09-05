@@ -1,9 +1,9 @@
-<nav
-  class="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 dark:shadow-lg dark:shadow-gray-900/20">
+<nav id="main-nav"
+  class="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 dark:shadow-lg dark:shadow-green-800/20">
   <div class="container mx-auto flex items-center justify-between px-6 py-3">
     <div class="flex items-center">
       <button id="hamburger-button" type="button"
-        class="mr-4 inline-flex cursor-pointer items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-400 md:hidden"
+        class="mr-4 inline-flex cursor-pointer items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-500 md:hidden dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-gray-400"
         aria-controls="mobile-menu" aria-expanded="false">
         <span class="sr-only">Buka menu utama</span>
 
@@ -19,12 +19,7 @@
       </button>
 
       <a href="{{ route('home') }}" wire:navigate class="flex flex-shrink-0 items-center space-x-2">
-        <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#22C55E"
-            d="M100 0C44.8 0 0 44.8 0 100s44.8 100 100 100 100-44.8 100-100S155.2 0 100 0zM85 150c-2.8 0-5-2.2-5-5V80c0-13.8 11.2-25 25-25s25 11.2 25 25v15c0 2.8-2.2 5-5 5s-5-2.2-5-5V80c-8.3 0-15 6.7-15 15v55c0 2.8-2.2 5-5 5z" />
-          <path fill="#16A34A"
-            d="M115 55c-13.8 0-25 11.2-25 25v70c0 2.8 2.2 5 5 5s5-2.2 5-5V80c8.3 0 15-6.7 15-15V55z" />
-        </svg>
+        <img src="{{ asset('logo.png') }}" alt="AgroMart Logo" class="h-10 w-10 object-contain">
         <span class="text-2xl font-bold text-green-600 dark:text-green-500">AgroMart</span>
       </a>
     </div>
@@ -52,7 +47,7 @@
           </svg>
 
           <div
-            class="absolute top-full left-1/2 mb-2 w-max -translate-x-1/2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-gray-900">
+            class="absolute left-1/2 top-full mb-2 w-max -translate-x-1/2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-gray-900">
             Pesanan Saya
           </div>
         </a>
@@ -100,6 +95,22 @@
 
     {{-- Tombol Hamburger (Mobile) --}}
     <div class="flex items-center space-x-4 md:hidden">
+      @auth
+        <a href="{{ route('my.orders') }}" wire:navigate
+          class="group relative text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-500">
+
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+
+          <div
+            class="absolute left-1/2 top-full mb-2 w-max -translate-x-1/2 transform rounded-md bg-gray-800 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-gray-900">
+            Pesanan Saya
+          </div>
+        </a>
+      @endauth
       <livewire:components.cart-count />
       <x-toggle-theme />
       @auth

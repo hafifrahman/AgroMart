@@ -33,13 +33,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         ->name('dashboard');
 
     Route::get('product', App\Livewire\Admin\Product\Index::class)
-        ->name('product');
+        ->name('product.index');
 
-    Route::get('order', App\Livewire\Admin\Order::class)
-        ->name('order');
+    Route::get('product/{id}/edit', App\Livewire\Admin\Product\Edit::class)
+        ->name('product.edit');
 
-    Route::get('customer', App\Livewire\Admin\Customer::class)
-        ->name('customer');
+    Route::get('order', App\Livewire\Admin\Order\Index::class)
+        ->name('order.index');
+
+    Route::get('order/{order}', App\Livewire\Admin\Order\Show::class)
+        ->name('order.show');
+
+    Route::get('customer', App\Livewire\Admin\Customer\Index::class)
+        ->name('customer.index');
+
+    Route::get('customer/{customer}', App\Livewire\Admin\Customer\Show::class)
+        ->name('customer.show');
 });
 
 require __DIR__ . '/auth.php';

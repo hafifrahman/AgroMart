@@ -3,16 +3,16 @@ document.addEventListener('livewire:navigated', function () {
     const syncIcons = (theme) => {
         const allDarkIcons = document.querySelectorAll('.theme-toggle-dark-icon');
         const allLightIcons = document.querySelectorAll('.theme-toggle-light-icon');
-        const themeTooltip = document.getElementById('theme-tooltip');
+        const themeTooltips = document.querySelectorAll('.theme-tooltip');
 
         if (theme === 'dark') {
             allLightIcons.forEach((icon) => icon.classList.remove('hidden'));
             allDarkIcons.forEach((icon) => icon.classList.add('hidden'));
-            themeTooltip.innerText = 'Light Mode';
+            themeTooltips.forEach((tooltip) => (tooltip.innerText = 'Light Mode'));
         } else {
             allDarkIcons.forEach((icon) => icon.classList.remove('hidden'));
             allLightIcons.forEach((icon) => icon.classList.add('hidden'));
-            themeTooltip.innerText = 'Dark Mode';
+            themeTooltips.forEach((tooltip) => (tooltip.innerText = 'Dark Mode'));
         }
     };
 

@@ -14,7 +14,7 @@
     <div class="flex items-center space-x-4">
       <x-toggle-theme />
 
-      <div class="relative">
+      <div class="relative flex items-center justify-center">
         <button class="flex items-center space-x-2">
           <div
             class="flex h-9 w-9 items-center justify-center rounded-full bg-green-200 font-bold text-green-700 dark:bg-green-900 dark:text-green-200">
@@ -34,6 +34,14 @@
           </div>
           <span class="hidden font-semibold text-gray-700 sm:block dark:text-gray-200">{{ Auth::user()->name }}</span>
         </button>
+
+        <form method="POST" action="{{ route('logout') }}" class="inline">
+          @csrf
+          <button type="submit"
+            class="ml-2 cursor-pointer rounded px-3 py-1 text-sm font-medium text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-gray-700">
+            Logout
+          </button>
+        </form>
       </div>
     </div>
   </div>

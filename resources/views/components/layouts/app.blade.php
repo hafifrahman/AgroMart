@@ -7,6 +7,7 @@
 
     <title>{{ $title . ' - ' . config('app.name') }}</title>
 
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <script>
@@ -31,10 +32,10 @@
     @livewireStyles
   </head>
 
-  <body>
+  <body class="bg-gray-50 antialiased dark:bg-gray-900">
     <x-layouts.header />
 
-    <main class="min-h-[502px] bg-gray-50 dark:bg-gray-900">
+    <main class="min-h-[502px]">
       {{ $slot }}
     </main>
 

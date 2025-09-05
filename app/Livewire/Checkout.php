@@ -65,6 +65,12 @@ class Checkout extends Component
         $this->phone = Auth::user()->phone ?? '';
     }
 
+    public function cancelOrder()
+    {
+        session()->forget('selected_cart_items');
+        return $this->redirectRoute('home', navigate: true);
+    }
+
     public function calculateTotals()
     {
         $this->subtotal = 0;

@@ -22,7 +22,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Jumlah Pesanan</p>
-          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">1,280</p>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">{{ $orderCount }}</p>
         </div>
         <div class="rounded-full bg-blue-100 p-3 dark:bg-blue-500/20">
           <svg class="h-6 w-6 text-blue-600 dark:text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -37,7 +37,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Jumlah Pelanggan</p>
-          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">{{ $customerCount }}</p>
+          <p class="text-2xl font-bold text-gray-800 dark:text-gray-100">{{ $customers->count() }}</p>
         </div>
         <div class="rounded-full bg-indigo-100 p-3 dark:bg-indigo-500/20">
           <svg class="h-6 w-6 text-indigo-600 dark:text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -80,69 +80,49 @@
 
     <!-- Recent Orders -->
     <div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
-      <h3 class="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Pesanan Terbaru</h3>
-      <div class="space-y-4">
-        <div class="flex items-center">
-          <div class="h-10 w-10 flex-shrink-0">
-            <img class="h-full w-full rounded-full object-cover" src="https://ui-avatars.com/api/?name=Budi+Doremi"
-              alt="Budi Doremi">
-          </div>
-          <div class="ml-4 flex-1">
-            <p class="font-semibold text-gray-800 dark:text-gray-100">Budi Doremi</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">ID Pesanan: #87632</p>
-          </div>
-          <div class="text-right">
-            <p class="font-bold text-green-600 dark:text-green-500">Rp 350.000</p>
-            <span
-              class="mt-1 inline-block rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/50 dark:text-green-300">Selesai</span>
-          </div>
+      @if ($orders->isNotEmpty())
+        <h3 class="mb-4 text-lg font-semibold text-gray-800 dark:text-gray-100">Pesanan Terbaru</h3>
+        <div class="space-y-4">
+          @foreach ($orders as $order)
+            <div class="flex items-center">
+              <div class="h-10 w-10 flex-shrink-0">
+                <img class="h-full w-full rounded-full object-cover"
+                  src="https://ui-avatars.com/api/?name={{ $order->user->name }}" alt="{{ $order->user->name }}">
+              </div>
+              <div class="ml-4 flex-1">
+                <p class="font-semibold text-gray-800 dark:text-gray-100">{{ $order->user->name }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">ID Pesanan: #{{ $order->order_code }}</p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-green-600 dark:text-green-500">Rp
+                  {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                @php
+                  $statusClasses =
+                      [
+                          'pending' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
+                          'processing' => 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+                          'shipped' => 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-300',
+                          'completed' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+                          'cancelled' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+                      ][$order->status] ?? 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
+                @endphp
+                <span
+                  class="{{ $statusClasses }} mt-1 inline-block rounded-full px-2 py-1 text-xs font-semibold">{{ ucfirst($order->status) }}</span>
+              </div>
+            </div>
+          @endforeach
         </div>
-        <div class="flex items-center">
-          <div class="h-10 w-10 flex-shrink-0">
-            <img class="h-full w-full rounded-full object-cover" src="https://ui-avatars.com/api/?name=Siti+Nurhaliza"
-              alt="Siti Nurhaliza">
-          </div>
-          <div class="ml-4 flex-1">
-            <p class="font-semibold text-gray-800 dark:text-gray-100">Siti Nurhaliza</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">ID Pesanan: #87631</p>
-          </div>
-          <div class="text-right">
-            <p class="font-bold text-green-600 dark:text-green-500">Rp 125.000</p>
-            <span
-              class="mt-1 inline-block rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300">Tertunda</span>
-          </div>
+      @else
+        <div class="rounded-xl bg-white py-16 text-center shadow-md dark:bg-gray-800">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            aria-hidden="true">
+            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-gray-100">Tidak ada pesanan terbaru</h3>
+          <p class="mt-1 text-gray-500 dark:text-gray-400">Belum ada pesanan yang masuk.</p>
         </div>
-        <div class="flex items-center">
-          <div class="h-10 w-10 flex-shrink-0">
-            <img class="h-full w-full rounded-full object-cover" src="https://ui-avatars.com/api/?name=Ahmad+Dhani"
-              alt="Ahmad Dhani">
-          </div>
-          <div class="ml-4 flex-1">
-            <p class="font-semibold text-gray-800 dark:text-gray-100">Ahmad Dhani</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">ID Pesanan: #87630</p>
-          </div>
-          <div class="text-right">
-            <p class="font-bold text-green-600 dark:text-green-500">Rp 780.000</p>
-            <span
-              class="mt-1 inline-block rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900/50 dark:text-red-300">Dibatalkan</span>
-          </div>
-        </div>
-        <div class="flex items-center">
-          <div class="h-10 w-10 flex-shrink-0">
-            <img class="h-full w-full rounded-full object-cover" src="https://ui-avatars.com/api/?name=Joko+Anwar"
-              alt="Joko Anwar">
-          </div>
-          <div class="ml-4 flex-1">
-            <p class="font-semibold text-gray-800 dark:text-gray-100">Joko Anwar</p>
-            <p class="text-sm text-gray-500 dark:text-gray-400">ID Pesanan: #87629</p>
-          </div>
-          <div class="text-right">
-            <p class="font-bold text-green-600 dark:text-green-500">Rp 50.000</p>
-            <span
-              class="mt-1 inline-block rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/50 dark:text-green-300">Selesai</span>
-          </div>
-        </div>
-      </div>
+      @endif
     </div>
   </div>
 </div>

@@ -10,18 +10,22 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     #[Layout('components.layouts.admin.app')]
     #[Title('Produk')]
 
+    // Properti untuk mengontrol modal
+    public bool $showAddProductModal = false;
+
     #[Validate('required|string|max:255')]
     public string $name = '';
 
-    #[Validate('nullable|image|max:1024')]
+    #[Validate('nullable|max:5120|mimes:jpg,jpeg,png,webp')]
     public $image;
 
     #[Validate('required|exists:categories,id')]
@@ -32,6 +36,22 @@ class Index extends Component
 
     #[Validate('required|integer|min:1')]
     public int $stock = 1;
+
+    #[Validate('nullable|string|max:255')]
+    public string $description = '';
+
+    // Method untuk membuka modal
+    public function openAddProductModal()
+    {
+        $this->showAddProductModal = true;
+    }
+
+    // Method untuk menutup modal dan mereset form
+    public function closeAddProductModal()
+    {
+        $this->showAddProductModal = false;
+        $this->reset();
+    }
 
     public function store()
     {
@@ -52,6 +72,7 @@ class Index extends Component
         ModelsProduct::create($validatedData);
 
         $this->reset();
+        $this->closeAddProductModal();
         $this->dispatch('productCreated');
     }
 
@@ -64,7 +85,10 @@ class Index extends Component
 
     public function render()
     {
-        $products = ModelsProduct::with('category')->paginate(10);
+        $products = ModelsProduct::with('category', 'user')
+            ->latest()
+            ->paginate(10);
+
         $categories = Category::all();
 
         return view('livewire.admin.product.index', [

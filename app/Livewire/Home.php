@@ -29,7 +29,7 @@ class Home extends Component
 
     public function render()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with('category')->where('featured', true)->get();
 
         return view('livewire.home', [
             'products' => $products,

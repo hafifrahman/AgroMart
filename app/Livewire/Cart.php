@@ -19,12 +19,23 @@ class Cart extends Component
     public function mount()
     {
         $this->loadCartItems();
+
+        // Ambil data dari session jika tersedia
+        $sessionSelected = session('selected_cart_items', []);
+
+        if (!empty($sessionSelected)) {
+            $this->selectedItems = $sessionSelected;
+
+            // Cek apakah semua item dipilih
+            $this->selectAll = count($this->selectedItems) === $this->cartItems->count();
+        }
     }
 
     public function loadCartItems()
     {
         $this->cartItems = ShoppingCart::with('product')
             ->where('user_id', Auth::id())
+            ->latest()
             ->get();
 
         // Inisialisasi quantities dari database

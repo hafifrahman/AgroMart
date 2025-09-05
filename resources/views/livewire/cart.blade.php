@@ -1,7 +1,7 @@
 <div class="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
   <h1 class="mb-12 text-4xl font-extrabold tracking-tight text-gray-800 dark:text-gray-100">Keranjang Belanja</h1>
 
-  @if ($cartItems && $cartItems->count() > 0)
+  @if ($cartItems->isNotEmpty())
     <div class="flex flex-col gap-8 lg:flex-row">
       <!-- Daftar Item Keranjang -->
       <div
@@ -45,7 +45,7 @@
             <div class="flex items-center gap-4">
               <input type="number" wire:model="quantities.{{ $item->id }}"
                 wire:change="updateQuantity({{ $item->id }})" min="1"
-                class="w-16 rounded border border-gray-300 p-1.5 text-center text-gray-800 focus:border-green-500 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-green-600 dark:focus:ring-green-600">
+                class="w-16 rounded border border-gray-300 p-1.5 text-center text-gray-800 transition duration-150 ease-in-out focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-green-600 dark:focus:ring-green-500/50">
 
               <button wire:click="removeItem({{ $item->id }})"
                 class="cursor-pointer text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-600">
