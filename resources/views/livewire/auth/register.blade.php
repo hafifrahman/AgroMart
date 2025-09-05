@@ -26,10 +26,10 @@
       @enderror
     </div>
 
-    <button
+    <button wire:loading.class="opacity-50" wire:target="store"
       class="w-full cursor-pointer rounded-lg bg-green-600 py-2 text-white transition hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600"
       type="submit">
-      Register
+      Register<span wire:loading wire:target="store">...</span>
     </button>
   </form>
 
